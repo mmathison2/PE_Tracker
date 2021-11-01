@@ -27,10 +27,11 @@ express()
         const locals = {
           'tasks': (tasks) ? tasks.rows : null
         };
-        res.render('pages/index', locals);
+       
+      res.render('pages/index', locals);
 
       client.release();
-      res.send("Works");
+      
     }
     catch (err) {
       console.error(err);
@@ -59,7 +60,7 @@ express()
          'tables': (tables) ? tables.rows : null,
          'obs': (obs) ? obs.rows : null
        };
-       console.log(obs.rows[0].duration.minutes);
+   
 
        res.render('pages/db-info', locals);
        client.release();
