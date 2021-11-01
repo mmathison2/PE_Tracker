@@ -31,7 +31,7 @@ express()
       res.render('pages/index', locals);
 
       client.release();
-      
+
     }
     catch (err) {
       console.error(err);
@@ -81,10 +81,10 @@ express()
       
       const sqlInsert = await client.query(
         `INSERT INTO observations (users_id, students_id, tasks_id, duration)
-        VALUES (${usersId}, ${studentsId}, ${tasksId}, ${duration}
-          RETURNING id as new_id);`
+        VALUES (${usersId}, ${studentsId}, ${tasksId}, ${duration})
+        RETURNING id as new_id;`
       );
-      console.log('Tracking task ${tasksId}');
+      console.log(`Tracking task ${tasksId}`);
 
       const result = {
         'response': (sqlInsert) ? (sqlInsert.rows[0]) : null
