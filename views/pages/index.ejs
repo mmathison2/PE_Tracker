@@ -6,6 +6,15 @@
   </head>
   <body>
     <h1>PE Tracker</h1>
+    <h2>Enter Observation</h2>
+    <form>
+      <label for="hours">Hours Observed: </label>
+      <input id="hours" type="number" min="0" max="99"><br>
+      <label for="minutes">Minutes Observed: </label>
+      <input id="minutes" type="number" min="0" max="99"><br>
+      <label for="seconds">Seconds Observed: </label>
+      <input id="seconds" type="number" min="0" max="99"><br>
+    </form>
     <% tasks.forEach(function(r) {%>
     <button id='<%= r.id %>'
       onClick='javascript:logTask(<%= r.id %>);'><%= r.name %>
@@ -13,8 +22,17 @@
   <% }); %>
   <script>
     let currentTaskId = null;
-
+    let hoursObs = null;
+    let minutesObs = null;
+    let secondsObs = null;
+    let totalTime = null;
+    
     const logTask = async function(id) {
+      hoursObs = document.getElementById("hours").value.toString();
+      minutesObs = document.getElementById("minutes").value.toString();
+      secondsObs = document.getElementById("seconds").value.toString();
+      totalTime = "\'+" + hoursObs + ":" + minutesObs + ":" + secondsObs + "\'";
+      console.log(totalTime);
       const response = await fetch('/log', {
         method: 'POST',
         headers: {
@@ -25,7 +43,7 @@
           users_id: -1, 
           students_id: -1,
           tasks_id: id, 
-          duration: "'+00:00:01'"
+          duration: totalTime
         })
       });
       const result = await response.json();
